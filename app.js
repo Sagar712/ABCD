@@ -6,11 +6,21 @@ function fireIt() {
     Notification.requestPermission().then(function(result) {
         if (result === 'granted') {
           navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Notification with ServiceWorker', {body:"Here is body"});
+            registration.showNotification('Notification 1', {body:"Here is body"});
           });
         }
       });
 }
+
+setInterval(function(){
+    Notification.requestPermission().then(function(result) {
+        if (result === 'granted') {
+          navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification('Notification delayed', {body:"Time to add task"});
+          });
+        }
+      });
+}, 5000);
 
 
 /*
