@@ -3,10 +3,10 @@ if ('serviceWorker' in navigator) {
 }
 
 function fireIt() {
-    Notification.requestPermission(function(result) {
+    Notification.requestPermission().then(function(result) {
         if (result === 'granted') {
           navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Notification with ServiceWorker');
+            registration.showNotification('Notification with ServiceWorker', {body:"Here is body"});
           });
         }
       });
