@@ -1,4 +1,23 @@
-self.addEventListener('install', event => console.log('ServiceWorker installed'));
+self.addEventListener("install", e => {
+  e.waitUntil(
+      caches.open("NotifyTrial").then(cache => {
+          return cache.addAll(["./", "./app.js", "./style.css", "./Logo.png"]);
+      })
+  );
+});
+
+self.addEventListener("fetch", e => {
+  console.log(`Intesepting fet req for: ${e.request.url}`);
+
+  e.respondWith(
+      caches.match(e.request).then(response => {
+          return response || fetch(e.request);
+      })
+  );
+
+});
+
+//self.addEventListener('install', event => console.log('ServiceWorker installed'));
 
 
 
