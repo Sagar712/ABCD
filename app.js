@@ -13,17 +13,56 @@ function fireIt() {
     Notification.requestPermission().then(function(result) {
         if (result === 'granted') {
           navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Notification 1', {body:"Here is body"});
+            registration.showNotification('Notification from PWA', {body:"-------Empty------"});
           });
         }
       });
 }
 
-setInterval(function(){
+let hours = 9, mins=0;
+
+function timesetter() {
+  const timerec = document.querySelector('.timesetter').value;
+  hours = timerec.split(":")[0];
+  mins = timerec.split(":")[1];
+  console.log(hours + " -> "+mins);
+}
+
+
+window.setInterval(function(){
+  let dateIS = new Date();
+  //console.log(dateIS.getHours()+" : "+dateIS.getMinutes()+" : "+dateIS.getSeconds());
+  if(dateIS.getHours() == hours && dateIS.getMinutes() == mins && dateIS.getSeconds() == 1){
+    
+    Notification.requestPermission().then(function(result) {
+      if (result === 'granted') {
+        navigator.serviceWorker.ready.then(function(registration) {
+          registration.showNotification('Triggered by PWA', {
+            body:"Clock met condition", 
+            data: {
+              url: window.location.href, // pass the current url to the notification
+            },
+            actions: [
+            {
+              action: 'open',
+              title: 'Open app'
+            },
+            {
+              action: 'close',
+              title: 'Close notification',
+            }
+          ]});
+        });
+      }
+    });
+  }
+}, 1000);
+
+setTimeout(function(){
     Notification.requestPermission().then(function(result) {
         if (result === 'granted') {
           navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Notification delayed', {body:"Time to add task"});
+            registration.showNotification('Notification Enabled', {body:"This PWA can send send you notifications!"});
           });
         }
       });

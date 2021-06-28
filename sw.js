@@ -17,6 +17,16 @@ self.addEventListener("fetch", e => {
 
 });
 
+setInterval(function(){
+  console.log(",nnfm,s");
+  let dateIS = new Date();
+  if(dateIS.getHours() == 14 && dateIS.getMinutes() == 3 && dateIS.getSeconds() == 1){
+    self.registration.showNotification('Hello, World.');
+    return 'done'
+  }
+}, 1000)
+
+
 //self.addEventListener('install', event => console.log('ServiceWorker installed'));
 
 
