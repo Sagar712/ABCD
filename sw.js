@@ -6,6 +6,7 @@ self.addEventListener("install", e => {
   );
 });
 
+
 self.addEventListener("fetch", e => {
   console.log(`Intesepting fet req for: ${e.request.url}`);
 
@@ -18,7 +19,6 @@ self.addEventListener("fetch", e => {
 });
 
 setInterval(function(){
-  console.log(",nnfm,s");
   let dateIS = new Date();
   if(dateIS.getHours() == 14 && dateIS.getMinutes() == 3 && dateIS.getSeconds() == 1){
     self.registration.showNotification('Hello, World.');
@@ -26,15 +26,27 @@ setInterval(function(){
   }
 }, 1000)
 
+self.addEventListener('notificationclick', event => {
+  if (event.action === 'open') {
+    event.waitUntil(self.clients.openWindow('./'));
+  }
+});
+
+self.addEventListener('notificationclick', event => {
+  if (event.action === 'close') {
+    event.notification.close();
+  } else {
+    self.clients.openWindow('/');
+  }
+});
+
 
 //self.addEventListener('install', event => console.log('ServiceWorker installed'));
 
 
 
 /*
-self.addEventListener('notificationclick', event => {
-    event.waitUntil(self.clients.openWindow('/'));
-});
+
 
 self.addEventListener('notificationclick', event => {
     event.waitUntil(self.clients.matchAll().then(clients => {

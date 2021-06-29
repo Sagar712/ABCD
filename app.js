@@ -28,6 +28,13 @@ function timesetter() {
   console.log(hours + " -> "+mins);
 }
 
+if ('showTrigger' in Notification.prototype) {
+  console.log('Notification Triggers supported ');
+}
+else{
+  console.log("Not supported");
+}
+
 
 window.setInterval(function(){
   let dateIS = new Date();
