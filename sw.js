@@ -17,9 +17,10 @@ self.addEventListener("fetch", e => {
   );
 
   e.waitUntil(update(e.request))
-  .then( response => {console.log("Updated "+response)});
 
 });
+
+var CACHE = 'cache-update-and-refresh';
 
 function update(request) {
   return caches.open(CACHE).then(function (cache) {
