@@ -8,7 +8,7 @@ self.addEventListener("install", e => {
 
 
 self.addEventListener("fetch", e => {
-  console.log(`Intesepting fet req for: ${e.request.url}`);
+  //console.log(`Intesepting fet req for: ${e.request.url}`);
 
   e.respondWith(
       caches.match(e.request).then(response => {
@@ -16,31 +16,16 @@ self.addEventListener("fetch", e => {
       })
   );
 
-  e.waitUntil(update(e.request))
-
 });
 
-var CACHE = 'cache-update-and-refresh';
-
-function update(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return fetch(request).then(function (response) {
-      return cache.put(request, response.clone()).then(function () {
-        return response;
-      });
-    });
-  });
-}
-
-
-
-setInterval(function(){
-  let dateIS = new Date();
-  if(dateIS.getHours() == 14 && dateIS.getMinutes() == 3 && dateIS.getSeconds() == 1){
-    self.registration.showNotification('Hello, World.');
-    return 'done'
+self.addEventListener('message', function (event) {
+  if (event.data.action === 'skipWaiting') {
+    self.skipWaiting();
   }
-}, 1000)
+});
+
+
+
 
 self.addEventListener('notificationclick', event => {
   if (event.action === 'open') {
@@ -55,6 +40,8 @@ self.addEventListener('notificationclick', event => {
     self.clients.openWindow('/');
   }
 });
+
+
 
 
 //self.addEventListener('install', event => console.log('ServiceWorker installed'));

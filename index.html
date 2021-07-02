@@ -6,14 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <link rel="manifest" href="./manifest.json">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+      crossorigin="anonymous"
+    />
     <title>Notfiy Trial</title>
 </head>
 <body>
+    <div class="updateAvailable"> <span class="FireUpdate" onclick="fireUpdate()"> Click to install update  </span> 
+        <span class="closebtnH"><i class="fas fa-times"></i></span> </div>
     <h1>Hello and Welcome</h1>
 
     <input type="time" class="timesetter" onchange="timesetter()">
 
-    <button class="Fire" onclick="fireIt()">Fire Notification</button>
+    <button class="Fire" onclick="fireIt()">Schedule Notification for next 5 days</button>
+
+    <br><br>
+    <button onclick="showAll()">Show All</button>
+    <button onclick="deleteAll()">Delete All</button>
 
     <script src="./app.js"></script>
 </body>
